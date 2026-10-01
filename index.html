@@ -3,12 +3,12 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>لمسات حرير | LMSAT HARER - الكتالوج التفاعلي</title>
+    <title>لمسات حرير | LMSAT HARER - الكتالوج التفاعلي الشامل</title>
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Google Fonts: Cairo -->
     <link
-      href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&display=swap"
       rel="stylesheet"
     />
     <style>
@@ -26,22 +26,36 @@
       .bg-olive {
         background-color: #3a4a2d;
       }
-      .bg-olive-light {
-        background-color: #4a5d3b;
-      }
-      .bg-cream {
-        background-color: #f8f5ee;
-      }
       .card-shadow {
-        box-shadow: 0 10px 25px -5px rgba(58, 74, 45, 0.15);
+        box-shadow: 0 12px 30px -5px rgba(58, 74, 45, 0.18);
+      }
+
+      /* 3D Product Container Styling */
+      .product-3d-box {
+        perspective: 1000px;
+      }
+      .soap-bar-3d {
+        transform-style: preserve-3d;
+        transition: transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
+        box-shadow:
+          15px 20px 35px rgba(0, 0, 0, 0.25),
+          inset -2px -2px 10px rgba(0, 0, 0, 0.1);
+      }
+      .soap-bar-3d:hover {
+        transform: rotateY(-12deg) rotateX(6deg) scale(1.02);
+      }
+      .active-tab {
+        background-color: #3a4a2d !important;
+        color: #ffffff !important;
+        border-color: #c5a059 !important;
       }
     </style>
   </head>
-  <body class="min-h-screen p-4 md:p-8 flex flex-col items-center">
-    <!-- Header -->
-    <header class="text-center max-w-2xl mb-8">
+  <body class="min-h-screen p-3 md:p-8 flex flex-col items-center">
+    <!-- Main Header -->
+    <header class="text-center max-w-3xl mb-6">
       <div
-        class="inline-block p-3 rounded-full bg-white border border-[#C5A059] mb-3 shadow-sm"
+        class="inline-block p-3 rounded-full bg-white border-2 border-[#C5A059] mb-3 shadow-md"
       >
         <svg
           class="w-10 h-10 text-[#3A4A2D]"
@@ -53,20 +67,126 @@
           />
         </svg>
       </div>
-      <h1 class="text-3xl font-extrabold text-[#3A4A2D] mb-1">
+      <h1 class="text-3xl md:text-4xl font-extrabold text-[#3A4A2D] mb-1">
         LMSAT HARER - لمسات حرير
       </h1>
-      <p class="text-lg font-semibold text-[#8B7336]">
+      <p class="text-lg font-bold text-[#8B7336]">
         صابون طبيعي مستخلص من زيت زيتون الجوف
       </p>
-      <p class="text-sm text-gray-600 mt-1">
+      <p class="text-xs md:text-sm text-gray-600 mt-1">
         يمنح بشرتك ترطيباً عميقاً ونعومة تدوم
       </p>
     </header>
 
-    <!-- Main Interactive Layout -->
-    <main class="w-full max-w-5xl grid grid-cols-1 lg:grid-cols-12 gap-8">
-      <!-- Left Column: Master Sticker Simulator (8 cols) -->
+    <!-- View Switcher Tabs -->
+    <div
+      class="flex flex-wrap justify-center gap-2 mb-8 bg-white p-1.5 rounded-2xl border border-[#C5A059] shadow-sm max-w-2xl w-full"
+    >
+      <button
+        id="tab-btn-1"
+        onclick="switchTab(1)"
+        class="active-tab flex-1 min-w-[130px] py-2.5 px-4 rounded-xl text-xs md:text-sm font-bold text-gray-700 transition-all border border-transparent"
+      >
+        📦 العرض 3D والملصق
+      </button>
+      <button
+        id="tab-btn-2"
+        onclick="switchTab(2)"
+        class="flex-1 min-w-[130px] py-2.5 px-4 rounded-xl text-xs md:text-sm font-bold text-gray-700 transition-all border border-transparent"
+      >
+        📜 دليل الفوائد الكامل
+      </button>
+      <button
+        id="tab-btn-3"
+        onclick="switchTab(3)"
+        class="flex-1 min-w-[130px] py-2.5 px-4 rounded-xl text-xs md:text-sm font-bold text-gray-700 transition-all border border-transparent"
+      >
+        📱 معاينة السوشيال ميديا
+      </button>
+    </div>
+
+    <!-- TAB 1: 3D Packaging & Master Sticker Customizer -->
+    <main
+      id="tab-content-1"
+      class="w-full max-w-6xl grid grid-cols-1 lg:grid-cols-12 gap-8"
+    >
+      <!-- 3D Bottle / Soap Render Panel (5 Cols) -->
+      <section
+        class="lg:col-span-5 bg-gradient-to-b from-[#3A4A2D] to-[#2A3620] text-white p-6 rounded-2xl border-2 border-[#C5A059] card-shadow flex flex-col justify-between items-center text-center relative overflow-hidden"
+      >
+        <div
+          class="w-full flex justify-between items-center mb-4 border-b border-emerald-700/50 pb-2"
+        >
+          <span
+            class="text-xs bg-[#C5A059] text-black font-extrabold px-3 py-1 rounded-full"
+            >محاكاة ثلاثية الأبعاد (3D)</span
+          >
+          <span id="badge-sku-num" class="text-xs text-emerald-200 font-bold"
+            >SKU #1</span
+          >
+        </div>
+
+        <!-- 3D Soap Bar Visual -->
+        <div
+          class="product-3d-box my-6 w-full flex justify-center items-center"
+        >
+          <div
+            id="soap-3d-element"
+            class="soap-bar-3d w-64 h-80 bg-[#E8DFCE] rounded-2xl border-4 border-[#C5A059] p-4 flex flex-col justify-between items-center relative text-gray-800"
+          >
+            <!-- Brand Seal on Soap -->
+            <div class="text-center w-full border-b border-[#C5A059]/40 pb-2">
+              <p class="text-[10px] tracking-widest font-bold text-[#8B7336]">
+                LMSAT HARER
+              </p>
+              <p class="text-xs font-black text-[#3A4A2D]">زيت زيتون الجوف</p>
+            </div>
+
+            <!-- Live Dynamic Label Sticker Center -->
+            <div
+              class="bg-[#F8F5EE] border border-[#C5A059] rounded-lg p-2.5 w-full text-right shadow-inner"
+            >
+              <p
+                class="text-[9px] font-bold text-center text-[#3A4A2D] mb-1 border-b border-gray-300 pb-0.5"
+              >
+                صابون طبيعي مستخلص
+              </p>
+              <div
+                class="flex items-center justify-between bg-[#3A4A2D] text-white p-1.5 rounded text-[11px] font-bold mb-1"
+              >
+                <span>النوع المحدد:</span>
+                <span id="3d-selected-name" class="text-[#C5A059]"
+                  >صابون سادة</span
+                >
+              </div>
+              <div
+                class="flex items-center justify-between text-[10px] text-gray-600"
+              >
+                <span>التأكيد اليدوي:</span>
+                <span id="3d-check-status" class="text-emerald-700 font-black"
+                  >✓ محدد باليد</span
+                >
+              </div>
+            </div>
+
+            <!-- Dynamic Footnote -->
+            <div class="w-full text-center border-t border-[#C5A059]/40 pt-2">
+              <p
+                id="3d-selected-desc"
+                class="text-[10px] font-semibold text-[#3A4A2D] leading-tight italic"
+              >
+                " ينظف بلطف ويرطب البشرة ومناسب لجميع أنواع البشرة"
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <p class="text-xs text-emerald-200">
+          حرك الماوس أو المس الصابونة لرؤية المجسم من زوايا مختلفة
+        </p>
+      </section>
+
+      <!-- Master Grid Sticker Options (7 Cols) -->
       <section
         class="lg:col-span-7 bg-white p-6 rounded-2xl border-2 border-[#C5A059] card-shadow flex flex-col justify-between"
       >
@@ -74,17 +194,24 @@
           <div
             class="flex justify-between items-center mb-4 border-b border-gray-100 pb-3"
           >
+            <div>
+              <h2 class="text-lg font-extrabold text-[#3A4A2D]">
+                شبكة الملصق الموحد (16 نوع)
+              </h2>
+              <p class="text-xs text-gray-500">
+                اختر أي نوع لتشاهده مباشرة على الصابونة ثلاثية الأبعاد
+              </p>
+            </div>
             <span
-              class="text-xs font-bold bg-[#3A4A2D] text-white px-3 py-1 rounded-full"
-              >الملصق الموحد (Master Label)</span
+              class="text-xs bg-emerald-100 text-emerald-800 font-bold px-2.5 py-1 rounded-lg"
+              >Master Grid</span
             >
-            <span class="text-xs text-gray-500">انقر على أي نوع لتحديده</span>
           </div>
 
           <!-- 16 Checkboxes Grid -->
           <div
             id="soap-grid"
-            class="grid grid-cols-2 sm:grid-cols-4 gap-3 my-4"
+            class="grid grid-cols-2 sm:grid-cols-4 gap-2.5 my-3"
           >
             <!-- Dynamically Generated via JS -->
           </div>
@@ -92,99 +219,130 @@
 
         <!-- Action Footer -->
         <div
-          class="mt-6 pt-4 border-t border-gray-100 flex flex-col sm:flex-row justify-between items-center gap-3"
+          class="mt-4 pt-3 border-t border-gray-100 flex flex-col sm:flex-row justify-between items-center gap-3"
         >
-          <div class="text-xs text-gray-500 text-center sm:text-right">
-            النوع المحدد حالياً:
-            <span
-              id="selected-label-name"
-              class="font-bold text-[#3A4A2D] text-sm"
-              >صابون سادة</span
-            >
+          <div class="text-xs text-gray-600 text-center sm:text-right">
+            الطلب الحجمي:
+            <span class="font-bold text-[#3A4A2D]">250ml / قطعة 100g</span>
           </div>
-          <button
-            onclick="simCheck()"
-            class="w-full sm:w-auto bg-[#3A4A2D] hover:bg-[#2C3524] text-white text-xs font-bold px-4 py-2.5 rounded-lg transition-all flex items-center justify-center gap-2 shadow"
+          <a
+            href="https://wa.me/966538538896"
+            target="_blank"
+            class="w-full sm:w-auto bg-[#3A4A2D] hover:bg-[#2C3524] text-white text-xs font-bold px-5 py-2.5 rounded-xl transition-all flex items-center justify-center gap-2 shadow"
           >
-            <span>✓</span> محاكاة التشييك باليد
-          </button>
-        </div>
-      </section>
-
-      <!-- Right Column: Benefits Inspector Card (5 cols) -->
-      <section
-        class="lg:col-span-5 bg-[#3A4A2D] text-white p-6 rounded-2xl border-2 border-[#C5A059] card-shadow flex flex-col justify-between"
-      >
-        <div>
-          <div
-            class="flex items-center justify-between border-b border-emerald-700/50 pb-3 mb-4"
-          >
-            <h2 class="font-bold text-lg text-[#F8F5EE]">
-              بطاقة الفوائد والمكونات
-            </h2>
-            <span
-              id="soap-id-badge"
-              class="bg-[#C5A059] text-black font-extrabold text-xs px-2.5 py-0.5 rounded-full"
-              >#1</span
-            >
-          </div>
-
-          <div class="mb-6">
-            <h3
-              id="benefit-title"
-              class="text-2xl font-black text-[#C5A059] mb-3"
-            >
-              صابون سادة
-            </h3>
-            <div
-              class="bg-black/20 p-4 rounded-xl border border-emerald-600/30"
-            >
-              <p class="text-sm font-semibold mb-1 text-emerald-200">
-                الفوائد الخاصة:
-              </p>
-              <p
-                id="benefit-desc"
-                class="text-base leading-relaxed text-gray-100"
-              >
-                ينظف بلطف ويرطب البشرة ومناسب لجميع أنواع البشرة.
-              </p>
-            </div>
-          </div>
-        </div>
-
-        <!-- Contact Info Box -->
-        <div
-          class="bg-white/10 p-4 rounded-xl border border-white/10 text-xs space-y-2"
-        >
-          <p class="font-bold text-[#C5A059] mb-1">تواصل للطلب والاستفسار:</p>
-          <div class="flex justify-between items-center">
-            <span>📞 واتساب / اتصال:</span>
-            <a
-              href="https://wa.me/966538538896"
-              target="_blank"
-              class="font-bold dir-ltr underline text-emerald-300"
-              >0538538896</a
-            >
-          </div>
-          <div class="flex justify-between items-center">
-            <span>👻 سناب شات:</span>
-            <span class="font-bold dir-ltr">om_talal6677</span>
-          </div>
-          <div class="flex justify-between items-center">
-            <span>🎵 تيك توك:</span>
-            <span class="font-bold dir-ltr">moms_soap4</span>
-          </div>
+            <span>📱</span> اطلب هذا النوع عبر الواتساب
+          </a>
         </div>
       </section>
     </main>
 
+    <!-- TAB 2: Full Skincare Benefits Guide (16 Cards) -->
+    <main id="tab-content-2" class="w-full max-w-6xl hidden">
+      <div
+        class="bg-white p-6 rounded-2xl border-2 border-[#C5A059] card-shadow"
+      >
+        <div class="text-center mb-8 border-b border-gray-200 pb-4">
+          <h2 class="text-2xl font-black text-[#3A4A2D]">
+            فوائد الصابون الطبيعي من زيت زيتون الجوف
+          </h2>
+          <p class="text-sm font-semibold text-[#8B7336] mt-1">
+            دليل الاستخدام والعناية بالبشرة لجميع الأنواع الـ 16
+          </p>
+        </div>
+
+        <!-- 16 Benefits Cards Grid -->
+        <div
+          id="benefits-full-grid"
+          class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4"
+        >
+          <!-- Dynamically Generated via JS -->
+        </div>
+      </div>
+    </main>
+
+    <!-- TAB 3: Social Media Reel & Story Preview -->
+    <main id="tab-content-3" class="w-full max-w-md hidden">
+      <div
+        class="bg-black text-white rounded-3xl border-4 border-[#C5A059] p-5 card-shadow relative overflow-hidden flex flex-col justify-between h-[620px]"
+      >
+        <!-- Top Social Header -->
+        <div
+          class="flex items-center justify-between border-b border-white/20 pb-3 z-10"
+        >
+          <div class="flex items-center gap-2">
+            <div
+              class="w-8 h-8 rounded-full bg-[#C5A059] text-black font-extrabold flex items-center justify-center text-xs"
+            >
+              LH
+            </div>
+            <div>
+              <p class="text-xs font-bold">moms_soap4</p>
+              <p class="text-[10px] text-gray-300">لمسات حرير • صابون الجوف</p>
+            </div>
+          </div>
+          <span
+            class="text-[10px] bg-red-600 px-2 py-0.5 rounded-full font-bold"
+            >LIVE Packaging</span
+          >
+        </div>
+
+        <!-- Story Content Simulation -->
+        <div class="my-auto text-center z-10 px-4">
+          <div
+            class="inline-block bg-[#3A4A2D] border border-[#C5A059] p-4 rounded-2xl mb-4 shadow-2xl"
+          >
+            <p class="text-xs text-[#C5A059] font-bold mb-1">
+              🌿 تجهيز طلبية جديدة
+            </p>
+            <h3
+              id="reel-soap-title"
+              class="text-2xl font-black mb-2 text-white"
+            >
+              صابون اللبان
+            </h3>
+            <p
+              id="reel-soap-desc"
+              class="text-xs text-gray-200 leading-relaxed bg-black/40 p-2.5 rounded-xl border border-white/10"
+            >
+              يجدد الخلايا ويشد البشرة ويحارب علامات التقدم في السن
+            </p>
+          </div>
+          <p class="text-[11px] text-amber-200 font-semibold animate-pulse">
+            ✨ طباعة ملصق موحد + تحديد الخيار باليد ✨
+          </p>
+        </div>
+
+        <!-- Bottom Social Call To Action -->
+        <div
+          class="space-y-2 z-10 bg-white/10 backdrop-blur-md p-3 rounded-2xl border border-white/10"
+        >
+          <div class="flex justify-between text-xs text-gray-200">
+            <span>📞 للطلب مباشر:</span>
+            <span class="font-bold dir-ltr">0538538896</span>
+          </div>
+          <div class="flex justify-between text-xs text-gray-200">
+            <span>👻 سناب شات:</span>
+            <span class="font-bold dir-ltr">om_talal6677</span>
+          </div>
+          <a
+            href="https://wa.me/966538538896"
+            target="_blank"
+            class="block w-full bg-[#C5A059] text-black font-extrabold text-center py-2 rounded-xl text-xs shadow hover:bg-amber-400"
+          >
+            ارسل رسالة واتساب للطلب 💬
+          </a>
+        </div>
+      </div>
+    </main>
+
+    <!-- JavaScript App Logic -->
     <script>
-      // 16 Soaps Data[cite: 1, 2]
+      // Complete 16 Soaps & Benefits Data[cite: 1, 2]
       const soaps = [
         {
           id: 1,
           name: "صابون سادة",
-          desc: " ينظف بلطف ويرطب البشرة ومناسب لجميع أنواع البشرة",
+          desc: "ينظف بلطف ويرطب البشرة ومناسب لجميع أنواع البشرة",
         },
         {
           id: 2,
@@ -265,6 +423,7 @@
 
       let selectedIndex = 0;
 
+      // Render Master Grid Checkboxes
       function renderGrid() {
         const gridContainer = document.getElementById("soap-grid");
         gridContainer.innerHTML = "";
@@ -272,15 +431,15 @@
         soaps.forEach((soap, index) => {
           const isSelected = index === selectedIndex;
           const card = document.createElement("div");
-          card.className = `p-2.5 rounded-lg border text-xs cursor-pointer transition-all flex items-center justify-between ${
+          card.className = `p-2.5 rounded-xl border text-xs cursor-pointer transition-all flex items-center justify-between ${
             isSelected
-              ? "border-[#3A4A2D] bg-[#3A4A2D]/10 font-bold text-[#3A4A2D] shadow-sm ring-1 ring-[#3A4A2D]"
+              ? "border-[#3A4A2D] bg-[#3A4A2D]/10 font-extrabold text-[#3A4A2D] shadow-sm ring-2 ring-[#3A4A2D]"
               : "border-gray-200 hover:border-[#C5A059] bg-gray-50 text-gray-700"
           }`;
 
           card.onclick = () => selectSoap(index);
           card.innerHTML = `
-          <span class="truncate pl-1">${soap.name}</span>
+          <span class="truncate pl-1">${soap.id}. ${soap.name}</span>
           <div class="w-4 h-4 rounded border ${isSelected ? "bg-[#3A4A2D] border-[#3A4A2D]" : "border-gray-400 bg-white"} flex items-center justify-center shrink-0">
             ${isSelected ? '<svg class="w-3 h-3 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>' : ""}
           </div>
@@ -289,25 +448,75 @@
         });
       }
 
+      // Render 16 Benefits Guide Cards
+      function renderBenefitsGuide() {
+        const container = document.getElementById("benefits-full-grid");
+        container.innerHTML = "";
+
+        soaps.forEach((soap) => {
+          const card = document.createElement("div");
+          card.className =
+            "bg-[#F8F5EE] border border-[#C5A059]/40 p-4 rounded-xl flex flex-col justify-between hover:border-[#3A4A2D] transition-all";
+          card.innerHTML = `
+          <div>
+            <div class="flex items-center justify-between mb-2">
+              <span class="text-xs bg-[#3A4A2D] text-white font-extrabold px-2 py-0.5 rounded-full">${soap.id}</span>
+              <span class="text-[10px] text-[#8B7336] font-bold">زيت زيتون الجوف</span>
+            </div>
+            <h3 class="font-extrabold text-[#3A4A2D] text-base mb-1.5">${soap.name}</h3>
+            <p class="text-xs text-gray-600 leading-relaxed">${soap.desc}</p>
+          </div>
+          <button onclick="selectAndGoTo3D(${soap.id - 1})" class="mt-3 w-full bg-[#3A4A2D]/10 hover:bg-[#3A4A2D] hover:text-white text-[#3A4A2D] text-[11px] font-bold py-1.5 rounded-lg transition-all">
+            معاينة في المجسم 3D ➔
+          </button>
+        `;
+          container.appendChild(card);
+        });
+      }
+
+      // Select Soap Logic
       function selectSoap(index) {
         selectedIndex = index;
         const soap = soaps[index];
 
-        document.getElementById("selected-label-name").innerText = soap.name;
-        document.getElementById("benefit-title").innerText = soap.name;
-        document.getElementById("benefit-desc").innerText = soap.desc;
-        document.getElementById("soap-id-badge").innerText = `#${soap.id}`;
+        // Update 3D Visual
+        document.getElementById("3d-selected-name").innerText = soap.name;
+        document.getElementById("3d-selected-desc").innerText =
+          `"${soap.desc}"`;
+        document.getElementById("badge-sku-num").innerText = `SKU #${soap.id}`;
+
+        // Update Reel Visual
+        document.getElementById("reel-soap-title").innerText = soap.name;
+        document.getElementById("reel-soap-desc").innerText = soap.desc;
 
         renderGrid();
       }
 
-      function simCheck() {
-        const nextIndex = (selectedIndex + 1) % soaps.length;
-        selectSoap(nextIndex);
+      function selectAndGoTo3D(index) {
+        selectSoap(index);
+        switchTab(1);
       }
 
-      // Initialize
+      // Tab Switcher
+      function switchTab(tabNum) {
+        [1, 2, 3].forEach((n) => {
+          document.getElementById(`tab-content-${n}`).classList.add("hidden");
+          document
+            .getElementById(`tab-btn-${n}`)
+            .classList.remove("active-tab");
+        });
+
+        document
+          .getElementById(`tab-content-${tabNum}`)
+          .classList.remove("hidden");
+        document
+          .getElementById(`tab-btn-${tabNum}`)
+          .classList.add("active-tab");
+      }
+
+      // Initialize App
       renderGrid();
+      renderBenefitsGuide();
     </script>
   </body>
 </html>
